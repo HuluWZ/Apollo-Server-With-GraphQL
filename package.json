@@ -1,0 +1,16 @@
+{
+  "name": "apollo-server-with-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "apollo":"nodemon index.js"
+  },
+  "author": "Hulunlante Worku",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.5.0",
+    "graphql": "^15.8.0"
+  }
+}
