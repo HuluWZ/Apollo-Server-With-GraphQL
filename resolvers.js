@@ -1,16 +1,24 @@
 const { ApolloServer, gql } = require('apollo-server');
 
-var data = require('./data')
+//var data = require('./data')
+const axios = require('./axios');
 
-const authors = data.authors();
-const books = data.books();
-//console.log(authors)
+const data = async (req, res) => {
+      var books = await axios.books();
+      var authors = await axios.authors();
+      return {books,authors}
+}
+
+const authors = axios.authors();
+const books = axios.books();
+console.log(authors, books);
+
+/*
 const students = data.students();
 const colleges = data.colleges();
-
+*/
 const resolvers = {
   Query: {   
-
  book(parent, args, context, info)  { return books.find(book => book.id === args.id)},
  books(){return books},
        
@@ -22,18 +30,18 @@ const resolvers = {
 
  college(parent, args, context, info){return colleges.find(College => College.id === args.id)},
  colleges() { return colleges },
- 
       },
-// Map book.authorId === author.id      
 Author: {
-    books: (author) => {
-      return books.filter((book) => book.authorId === author.id);
-    }
+      book:  async (author) => {
+            const books = await axios.books();
+            console.log(books);
+      return books.find((book) => book.authorId == author.id)
+      } 
 },
-// Map author.id  === book.authorId     
 Book: {
-    author: (book) => {
-        return authors.find((author) => author.id === book.authorId)
+      author:  async (book) => {
+            const authors = await axios.authors();
+      return authors.find((author) => author.id === book.authorId)
       } 
 },
 Student: {

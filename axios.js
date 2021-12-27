@@ -6,7 +6,7 @@ const API_KEY = 'AIzaSyA697BpvqjTZ5zpsvyvZXwx5HMeybiGuOM';
 // Get Authors
 exports.books = async function() {
   try {
-  const URL = `https://www.googleapis.com/books/v1/volumes?q=Love&printType=books&maxResults=10&key=${API_KEY}`;
+  const URL = `https://www.googleapis.com/books/v1/volumes?q=Love&filter=ebooks&printType=books&maxResults=10&key=${API_KEY}`;
   const response = await axios.get(URL);
   const data = response.data.items;
     var bookArray = []
@@ -29,13 +29,12 @@ exports.books = async function() {
 // Get Authors
 exports.authors = async function () {
   try {
-  const URL = `https://www.googleapis.com/books/v1/volumes?q=Love&printType=books&maxResults=10&key=${API_KEY}`;
+  const URL = `https://www.googleapis.com/books/v1/volumes?q=Love&filter=ebooks&printType=books&maxResults=10&key=${API_KEY}`;  
   const response = await axios.get(URL);
   const data = response.data.items;
   var authorArray = []
     
     data.map(item => {
-      //const title = item.volumeInfo.t;
       const id = item.id;
       const name =  item.volumeInfo.authors[0];
       const authors = { id, name};
@@ -47,6 +46,7 @@ exports.authors = async function () {
     console.error(error);
   }
 }
+/*
 exports.bookByTitle = async function (parent, args, context, info) {
   try {
       //const title = args.title;
@@ -76,6 +76,7 @@ exports.bookById = async function (parent, args, context, info) {
     console.error(err);
   }
 }
+*/
 
 //bookById();
 //bookByTitle();
